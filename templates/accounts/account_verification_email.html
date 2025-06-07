@@ -1,0 +1,10 @@
+{% autoescape off %}
+
+Hi {{user.first_name}},
+
+Vui lòng nhấp vào liên kết dưới đây để xác nhận đăng ký của bạn.
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+Nếu bạn cho rằng đây không phải là bạn, vui lòng bỏ qua email này.
+
+{% endautoescape %}
