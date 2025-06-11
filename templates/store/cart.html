@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% load static %}
 
 {% block content %}
@@ -20,9 +21,9 @@
 <table class="table table-borderless table-shopping-cart">
 <thead class="text-muted">
 <tr class="small text-uppercase">
-  <th scope="col">Product</th>
-  <th scope="col" width="120">Quantity</th>
-  <th scope="col" width="120">Price</th>
+  <th scope="col">Sản Phẩm</th>
+<th scope="col" width="120">Số lượng</th>
+  <th scope="col" width="120">Giá</th>
   <th scope="col" class="text-right" width="200"> </th>
 </tr>
 </thead>
@@ -67,8 +68,8 @@
 	</td>
 	<td> 
 		<div class="price-wrap"> 
-			<var class="price">{{cart_item.sub_total}}vnđ</var> 
-			<small class="text-muted"> {{cart_item.product.price}}vnđ</small> 
+			<var class="price">{{cart_item.sub_total|floatformat:0|intcomma}}đ</var> 
+			<small class="text-muted"> {{cart_item.product.price|floatformat:0|intcomma}}đ</small> 
 		</div> <!-- price-wrap .// -->
 	</td>
 	<td class="text-right"> 
@@ -88,21 +89,21 @@
 		<div class="card-body">
 			<dl class="dlist-align">
 			  <dt>Tổng giá:</dt>
-			  <dd class="text-right">{{total}}vnđ</dd>
+			  <dd class="text-right">{{total|floatformat:0|intcomma}}đ</dd>
 			</dl>
 			<dl class="dlist-align">
 			  <dt>Thuế:</dt>
-			  <dd class="text-right"> {{tax}}vnđ</dd>
+			  <dd class="text-right"> {{tax|floatformat:0|intcomma}}đ</dd>
 			</dl>
 			<dl class="dlist-align">
 			  <dt>Tổng Tiền:</dt>
-			  <dd class="text-right text-dark b"><strong>{{grand_total}}vnđ</strong></dd>
+			  <dd class="text-right text-dark b"><strong>{{grand_total|floatformat:0|intcomma}}đ</strong></dd>
 			</dl>
 			<hr>
 			<p class="text-center mb-3">
 				<img src="{% static './images/misc/payments.png' %}" height="26">
 			</p>
-			<a href="./place-order.html" class="btn btn-primary btn-block"> Thanh Toán </a>
+			<a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Thanh Toán </a>
 			<a href="{% url 'store' %}" class="btn btn-light btn-block">Tiếp Tục Mua Sắm</a>
 		</div> <!-- card-body.// -->
 		</div> <!-- card.// -->
