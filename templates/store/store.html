@@ -1,16 +1,15 @@
-{%extends 'base.html' %}
-{% load humanize %}
+{% extends 'base.html' %}
 {% load static %}
+{% load filters %}
 
 {% block content %}
-
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
 <div class="container">
 	{% if 'search' in request.path %}
-		<h2 class="title-page">Tìm Kiếm</h2>
+		<h2 class="title-page">Kết quả tìm kiếm</h2>
 	{% else %}
-		<h2 class="title-page">Cửa Hàng</h2>
+		<h2 class="title-page">Cửa hàng</h2>
 	{% endif %}
 
 </div> <!-- container //  -->
@@ -23,101 +22,29 @@
 
 <div class="row">
 	<aside class="col-md-3">
-		
+
 <div class="card">
 	<article class="filter-group">
 		<header class="card-header">
 			<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
 				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Phân Loại</h6>
+				<h6 class="title">Danh mục</h6>
 			</a>
 		</header>
 		<div class="filter-content collapse show" id="collapse_1" style="">
 			<div class="card-body">
-				
+
 				<ul class="list-menu">
-				<li><a href="{% url 'store' %}">Tất Cả  </a></li>
-				{% for category in links %}
-				<li><a href="{{category.get_url}}">{{category.category_name}}  </a></li>
-				{% endfor %}
+					<li><a href="{% url 'store' %}">Tất cả</a></li>
+					{% for category in links %}
+				<li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+					{% endfor %}
 				</ul>
 
 			</div> <!-- card-body.// -->
 		</div>
 	</article> <!-- filter-group  .// -->
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Size </h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_4" style="">
-			<div class="card-body">
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> S </span>
-			  </label>
 
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> M </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> L </span>
-			  </label>
-
-			  <label class="checkbox-btn">
-			    <input type="checkbox">
-			    <span class="btn btn-light"> XL </span>
-			  </label>
-		</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
-	
-	<article class="filter-group">
-		<header class="card-header">
-			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
-				<i class="icon-control fa fa-chevron-down"></i>
-				<h6 class="title">Khoảng giá</h6>
-			</a>
-		</header>
-		<div class="filter-content collapse show" id="collapse_3" style="">
-			<div class="card-body">
-				
-				<div class="form-row">
-				<div class="form-group col-md-6">
-				  <label>Tối thiểu</label>
-				  <!-- <input class="form-control" placeholder="$0" type="number"> -->
-					<select class="mr-2 form-control">
-						<option value="0">{{ 0|floatformat:0|intcomma }}đ</option>
-						<option value="200000">{{ 200000|floatformat:0|intcomma }}đ</option>
-						<option value="500000">{{ 500000|floatformat:0|intcomma }}đ</option>
-						<option value="1000000">{{ 1000000|floatformat:0|intcomma }}đ</option>
-						<option value="2000000">{{ 2000000|floatformat:0|intcomma }}đ</option>
-						<option value="3000000">{{ 3000000|floatformat:0|intcomma }}đ</option>
-					</select>
-				</div>
-				<div class="form-group text-right col-md-6">
-				  <label>Tối đa</label>
-				  	<select class="mr-2 form-control">
-						<option value="200000">{{ 200000|floatformat:0|intcomma }}đ</option>
-						<option value="500000">{{ 500000|floatformat:0|intcomma }}đ</option>
-						<option value="1000000">{{ 1000000|floatformat:0|intcomma }}đ</option>
-						<option value="2000000">{{ 2000000|floatformat:0|intcomma }}đ</option>
-						<option value="5000000">{{ 5000000|floatformat:0|intcomma }}đ</option>
-						<option value="10000000">{{ 10000000|floatformat:0|intcomma }}đ</option>
-						<option value="20000000">{{ 20000000|floatformat:0|intcomma }}đ</option>
-					</select>
-				</div>
-				</div> <!-- form-row.// -->
-				<button class="btn btn-block btn-primary">Áp dụng</button>
-			</div><!-- card-body.// -->
-		</div>
-	</article> <!-- filter-group .// -->
-	
 </div> <!-- card.// -->
 
 	</aside> <!-- col.// -->
@@ -125,36 +52,36 @@
 
 <header class="border-bottom mb-4 pb-3">
 		<div class="form-inline">
-			<span class="mr-md-auto"><b>{{product_count}}</b> sản phẩm</span>
-			
+			<span class="mr-md-auto"><b>{{ product_count }}</b> sản phẩm</span>
+
 		</div>
 </header><!-- sect-heading -->
 
 <div class="row">
 	{% if products %}
-    {% for product in products %}
+	{% for product in products %}
 	<div class="col-md-4">
 		<figure class="card card-product-grid">
-			<div class="img-wrap"> 
-				
-				<a href="{{product.get_url}}"><img src="{{product.images.url}}"></a>
-				
+			<div class="img-wrap">
+
+				<a href="{{ product.get_url }}"><img src="{{ product.images.url }}"></a>
+
 			</div> <!-- img-wrap.// -->
 			<figcaption class="info-wrap">
 				<div class="fix-height">
-					<a href="{{product.get_url}}" class="title">{{ product.product_name }}</a>
+					<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
 					<div class="price-wrap mt-2">
-						<span class="price">{{ product.price|floatformat:0|intcomma }}đ</span>
+						<span class="price">{{ product.price|usd_to_vnd }}</span>
 					</div> <!-- price-wrap.// -->
 				</div>
-				<a href="{{ product.get_url }}" class="btn btn-block btn-primary">Xem Chi Tiết </a>
+				<a href="{{ product.get_url }}" class="btn btn-block btn-primary">Xem chi tiết</a>
 			</figcaption>
 		</figure>
 	</div> <!-- col.// -->
-    {% endfor %}
+	{% endfor %}
 	{% else %}
 	<div>
-		<h2>Không Có Kết Quả Tìm Kiếm. Vui Lòng Thử Lại!</h2>
+		<h2>Không tìm thấy kết quả. Vui lòng thử lại.</h2>
 	</div>
 	{% endif %}
 </div> <!-- row end.// -->
@@ -164,21 +91,21 @@
 	{% if products.has_other_pages %}
 	  <ul class="pagination">
 			{% if products.has_previous %}
-	    <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}"><</a></li>
+		<li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}"><</a></li>
 			{% else %}
 			<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
 			{% endif %}
 
 			{% for i in products.paginator.page_range %}
 				{% if products.number == i %}
-	    		<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+				<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 				{% else %}
 					<li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
 				{% endif %}
-	    {% endfor %}
+		{% endfor %}
 
 			{% if products.has_next %}
-	    	<li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">></a></li>
+			<li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">></a></li>
 			{% else %}
 				<li class="page-item disabled"><a class="page-link" href="#">></a></li>
 			{% endif %}
@@ -194,4 +121,4 @@
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
-{%endblock %}
+{% endblock %}

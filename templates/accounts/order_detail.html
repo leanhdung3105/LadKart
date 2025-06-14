@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load filters %}
 {% load static %}
 
 {% block content %}
@@ -50,9 +51,9 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th class="per70 text-center">Products</th>
-                                                <th class="per5 text-center">Qty</th>
-                                                <th class="per25 text-center">Total</th>
+                                                <th class="per70 text-center">Sản phẩm</th>
+                                                <th class="per5 text-center">Số lượng</th>
+                                                <th class="per25 text-center">Tổng cộng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -68,23 +69,23 @@
                                           				</p>
                                                 </td>
                                                 <td class="text-center">{{item.quantity}}</td>
-                                                <td class="text-center">{{item.product_price|floatformat:0|intcomma}}đ</td>
+                                                <td class="text-center">{{item.product_price|usd_to_vnd}}</td>
                                             </tr>
                                           {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th colspan="2" class="text-right">Tổng phụ:</th>
-                                                <th class="text-center">{{subtotal|floatformat:0|intcomma}}đ</th>
+                                                <th class="text-center">{{subtotal|usd_to_vnd}}</th>
                                             </tr>
                                             <tr>
                                                 <th colspan="2" class="text-right">Thuế:</th>
-                                                <th class="text-center">{{order.tax|floatformat:0|intcomma}}đ</th>
+                                                <th class="text-center">{{order.tax|usd_to_vnd}}</th>
                                             </tr>
 
                                             <tr>
                                                 <th colspan="2" class="text-right">Tổng cộng:</th>
-                                                <th class="text-center">{{order.order_total|floatformat:0|intcomma}}đ</th>
+                                                <th class="text-center">{{order.order_total|usd_to_vnd}}</th>
                                             </tr>
                                         </tfoot>
                                     </table>

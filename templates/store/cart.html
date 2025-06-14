@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load filters %}
 {% load static %}
 
 {% block content %}
@@ -68,8 +69,8 @@
 	</td>
 	<td> 
 		<div class="price-wrap"> 
-			<var class="price">{{cart_item.sub_total|floatformat:0|intcomma}}đ</var> 
-			<small class="text-muted"> {{cart_item.product.price|floatformat:0|intcomma}}đ</small> 
+			<var class="price">{{cart_item.sub_total|usd_to_vnd}}</var> 
+			<small class="text-muted"> {{cart_item.product.price|usd_to_vnd}}/ sản phẩm</small> 
 		</div> <!-- price-wrap .// -->
 	</td>
 	<td class="text-right"> 
@@ -89,15 +90,15 @@
 		<div class="card-body">
 			<dl class="dlist-align">
 			  <dt>Tổng giá:</dt>
-			  <dd class="text-right">{{total|floatformat:0|intcomma}}đ</dd>
+			  <dd class="text-right">{{total|usd_to_vnd}}</dd>
 			</dl>
 			<dl class="dlist-align">
 			  <dt>Thuế:</dt>
-			  <dd class="text-right"> {{tax|floatformat:0|intcomma}}đ</dd>
+			  <dd class="text-right"> {{tax|usd_to_vnd}}</dd>
 			</dl>
 			<dl class="dlist-align">
 			  <dt>Tổng Tiền:</dt>
-			  <dd class="text-right text-dark b"><strong>{{grand_total|floatformat:0|intcomma}}đ</strong></dd>
+			  <dd class="text-right text-dark b"><strong>{{grand_total|usd_to_vnd}}</strong></dd>
 			</dl>
 			<hr>
 			<p class="text-center mb-3">

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
-
+{% load filters %}
 {% block content %}
 
 <section class="section-conten padding-y bg">
@@ -34,7 +34,7 @@
 				      <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
 				      <td>{{order.full_name}}</td>
 				      <td>{{order.phone}}</td>
-				      <td>{{order.order_total|floatformat:0|intcomma}}đ</td>
+				      <td>{{order.order_total|usd_to_vnd}}</td>
 							<td>{{order.created_at|date:"d/m/Y"}}</td>
 				    </tr>
 				{% endfor %}

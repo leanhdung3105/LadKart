@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load filters %}
 {% load static %}
 
 {% block content %}
@@ -35,8 +36,8 @@
                                     <li><strong>Hóa đơn đến</strong></li>
                                     <li>{{order.full_name}}</li>
                                     <li>{{order.address}}</li>
-                                    <li>{{order.ward}}, {{order.district}}, {{order.city}}</li>
-                                    <li>{{order.country}}</li>
+                                    <li>{{order.ward}}, {{order.district}}</li>
+                                    <li>{{order.city}}, {{order.country}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -48,7 +49,7 @@
                                     <ul class="list-unstyled mb0">
                                         <li><strong>Đơn hàng</strong> #{{order_number}}</li>
                                         <li><strong>Mã giao dịch</strong> {{transID}}</li>
-                                        <li><strong>Ngày đặt hàng:</strong> {{order.created_at}}</li>
+                                        <li><strong>Ngày đặt hàng:</strong> {{order.created_at|date:"d/m/Y H:i"}}</li>
                                         <li><strong>Trạng thái:</strong> {{payment.status}}</li>
                                     </ul>
                                 </div>
@@ -77,23 +78,23 @@
                                           				</p>
                                                 </td>
                                                 <td class="text-center">{{item.quantity}}</td>
-                                                <td class="text-center">{{item.product_price|floatformat:0|intcomma}}đ</td>
+                                                <td class="text-center">{{item.product_price|usd_to_vnd}}</td>
                                             </tr>
                                           {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th colspan="2" class="text-right">Tổng phụ:</th>
-                                                <th class="text-center">{{subtotal|floatformat:0|intcomma}}đ</th>
+                                                <th class="text-center">{{subtotal|usd_to_vnd}}</th>
                                             </tr>
                                             <tr>
                                                 <th colspan="2" class="text-right">Thuế:</th>
-                                                <th class="text-center">{{order.tax|floatformat:0|intcomma}}đ</th>
+                                                <th class="text-center">{{order.tax|usd_to_vnd}}</th>
                                             </tr>
 
                                             <tr>
                                                 <th colspan="2" class="text-right">Tổng tiền:</th>
-                                                <th class="text-center">{{order.order_total|floatformat:0|intcomma}}đ</th>
+                                                <th class="text-center">{{order.order_total|usd_to_vnd}}</th>
                                             </tr>
                                         </tfoot>
                                     </table>

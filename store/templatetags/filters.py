@@ -7,6 +7,6 @@ register = template.Library()
 def usd_to_vnd(value, rate=25000):
     try:
         vnd = float(value) * rate
-        return "{:,.0f} ₫".format(vnd).replace(",", ".")
+        return "{:,.0f}₫".format(vnd).replace(",", ".")
     except:
         return ""
