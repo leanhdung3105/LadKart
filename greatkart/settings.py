@@ -26,7 +26,12 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'ladkart-env.eba-qaj9s9zc.us-west-2.elasticbeanstalk.com',
+    'localhost',
+    '127.0.0.1',
+    '.us-west-2.elasticbeanstalk.com',
+]
 
 
 # Application definition
