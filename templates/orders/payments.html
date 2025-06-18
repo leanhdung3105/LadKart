@@ -145,8 +145,8 @@
     return cookieValue;
 }
 
-	var amount = "{{ grand_total|floatformat:2 }}"; 
-	var url = "{% url 'payments' %}"
+	var amount = "{{ grand_total|floatformat:2 }}";
+	var url = "{% url 'payments' %}";
 	var csrftoken = getCookie('csrftoken');
 	var orderID = "{{order.order_number}}"
 	var payment_method = 'PayPal'
