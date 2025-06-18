@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
-    'admin_honeypot',  # Honeypot for admin security
+    'admin_honeypot',
+    'whitenoise.runserver_nostatic',  
 ]
 
 MIDDLEWARE = [
