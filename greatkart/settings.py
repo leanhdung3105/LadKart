@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import dj_database_url
 import django_heroku
 import os
 
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
 
 ]
 
@@ -93,11 +95,11 @@ AUTH_USER_MODEL = 'accounts.Account' # Tạo model tài khoản của riêng mì
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# Database settings
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3')  # Cấu hình default cho local
+    )
 }
 
 
