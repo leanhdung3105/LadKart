@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import dj_database_url
-import django_heroku
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
     'carts',
     'orders',
     'admin_honeypot',
-    'whitenoise.runserver_nostatic',  
 ]
 
 MIDDLEWARE = [
@@ -60,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
 
 ]
 
@@ -159,6 +156,3 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-
-# Cài đặt Django Heroku
-django_heroku.settings(locals())
